@@ -1,6 +1,6 @@
 /**
  * grunt-wp-plugin
- * https://github.com/ericmann/grunt-wp-plugin
+ * https://github.com/10up/grunt-wp-plugin
  *
  * Copyright (c) 2013 Eric Mann, 10up
  * Licensed under the MIT License
@@ -50,12 +50,15 @@ exports.template = function( grunt, init, done ) {
 		props.version = '0.1.0';
 		props.devDependencies = {
 			'grunt': '~0.4.1',
-			'grunt-contrib-concat': '~0.1.2',
-			'grunt-contrib-uglify': '~0.1.1',
-			'grunt-contrib-cssmin': '~0.6.0',
-			'grunt-contrib-jshint': '~0.1.1',
+			'grunt-contrib-concat':   '~0.1.2',
+			'grunt-contrib-uglify':   '~0.1.1',
+			'grunt-contrib-cssmin':   '~0.6.0',
+			'grunt-contrib-jshint':   '~0.1.1',
 			'grunt-contrib-nodeunit': '~0.1.2',
-			'grunt-contrib-watch': '~0.2.0',
+			'grunt-contrib-watch':    '~0.2.0',
+			'grunt-contrib-clean':    '~0.5.0',
+			'grunt-contrib-copy':     '~0.4.1',
+			'grunt-contrib-compress': '~0.5.2'
 		};
 
 		// Sanitize names where we need to for PHP/JS
