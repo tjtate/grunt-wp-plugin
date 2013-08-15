@@ -40,7 +40,7 @@ module.exports = function( grunt ) {
 					exports: true,
 					module:  false
 				}
-			}		
+			}
 		},
 		uglify: {
 			all: {
@@ -76,7 +76,7 @@ module.exports = function( grunt ) {
 				files: {
 					'assets/css/{%= js_safe_name %}.css': 'assets/css/less/{%= js_safe_name %}.less'
 				}
-			}		
+			}
 		},
 		{% } %}
 		cssmin: {
@@ -90,7 +90,7 @@ module.exports = function( grunt ) {
 			minify: {
 				expand: true,
 				{% if ('sass' === css_type || 'less' === css_type) { %}
-				cwd: 'assets/css/',				
+				cwd: 'assets/css/',
 				src: ['{%= js_safe_name %}.css'],
 				{% } else { %}
 				cwd: 'assets/css/src/',
@@ -135,7 +135,7 @@ module.exports = function( grunt ) {
 			}
 		}
 	} );
-	
+
 	// Load other tasks
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -147,7 +147,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks('grunt-contrib-less');
 	{% } %}
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	
+
 	// Default task.
 	{% if ('sass' === css_type) { %}
 	grunt.registerTask( 'default', ['jshint', 'concat', 'uglify', 'sass', 'cssmin'] );

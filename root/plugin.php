@@ -40,39 +40,41 @@ define( '{%= prefix_caps %}_VERSION', '0.1.0' );
 define( '{%= prefix_caps %}_URL',     plugin_dir_url( __FILE__ ) );
 define( '{%= prefix_caps %}_PATH',    dirname( __FILE__ ) . '/' );
 
-/**
- * Default initialization for the plugin:
- * - Registers the default textdomain.
- */
-function {%= prefix %}_init() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), '{%= prefix %}' );
-	load_textdomain( '{%= prefix %}', WP_LANG_DIR . '/{%= prefix %}/{%= prefix %}-' . $locale . '.mo' );
-	load_plugin_textdomain( '{%= prefix %}', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+class {%= className %} {
+
+	function __construct() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), '{%= prefix %}' );
+		load_textdomain( '{%= prefix %}', WP_LANG_DIR . '/{%= prefix %}/{%= prefix %}-' . $locale . '.mo' );
+		load_plugin_textdomain( '{%= prefix %}', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+		register_activation_hook( __FILE__, array( &$this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( &$this, 'deactivate' ) );
+	}
+
+	function activate() {
+
+		flush_rewrite_rules();
+	}
+
+	function deactivate() {
+
+	}
+
+	function rename_me() {
+
+	}
+
+	function rename_me_too() {
+
+	}
+
+	function getTransient( $transient ) {
+		if ( false === ( $variable = get_transient( $transient ) ) ) {
+
+			set_transient( $transient, $variable, 60*60 );
+		}
+		return $variable
+	}
 }
-
-/**
- * Activate the plugin
- */
-function {%= prefix %}_activate() {
-	// First load the init scripts in case any rewrite functionality is being loaded
-	{%= prefix %}_init();
-
-	flush_rewrite_rules();
-}
-register_activation_hook( __FILE__, '{%= prefix %}_activate' );
-
-/**
- * Deactivate the plugin
- * Uninstall routines should be in uninstall.php
- */
-function {%= prefix %}_deactivate() {
-
-}
-register_deactivation_hook( __FILE__, '{%= prefix %}_deactivate' );
-
-// Wireup actions
-add_action( 'init', '{%= prefix %}_init' );
-
-// Wireup filters
-
-// Wireup shortcodes
+// Have a nice day!
+${%= className %} = new {%= className %};

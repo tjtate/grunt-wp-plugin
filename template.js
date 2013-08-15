@@ -39,6 +39,11 @@ exports.template = function( grunt, init, done ) {
 			name: 'css_type',
 			message: 'CSS Preprocessor: Will you use "Sass", "LESS", or "none" for CSS with this project?',
 			default: 'Sass'
+		},
+		{
+			name: 'images',
+			message: 'Will you be using images with this project?',
+			default: 'yes'
 		}
 	], function( err, props ) {
 		props.keywords = [];
@@ -52,7 +57,7 @@ exports.template = function( grunt, init, done ) {
 			'grunt-contrib-nodeunit': '~0.1.2',
 			'grunt-contrib-watch': '~0.2.0',
 		};
-		
+
 		// Sanitize names where we need to for PHP/JS
 		props.name = props.title.replace( /\s+/g, '-' ).toLowerCase();
 		// Development prefix (i.e. to prefix PHP function names, variables)
@@ -65,6 +70,8 @@ exports.template = function( grunt, init, done ) {
 		props.js_test_safe_name = props.js_safe_name === 'test' ? 'myTest' : props.js_safe_name;
 		props.js_safe_name_caps = props.js_safe_name.toUpperCase();
 
+		props.className = props.title.replace( /\s+/g, '_');
+
 		// Files to copy and process
 		var files = init.filesToCopy( props );
 
@@ -72,7 +79,7 @@ exports.template = function( grunt, init, done ) {
 			case 'l':
 				delete files[ 'assets/css/sass/' + props.js_safe_name + '.scss'];
 				delete files[ 'assets/css/src/' + props.js_safe_name + '.css' ];
-				
+
 				props.devDependencies["grunt-contrib-less"] = "~0.5.0";
 				props.css_type = 'less';
 				break;
@@ -80,27 +87,27 @@ exports.template = function( grunt, init, done ) {
 			case undefined:
 				delete files[ 'assets/css/less/' + props.js_safe_name + '.less'];
 				delete files[ 'assets/css/sass/' + props.js_safe_name + '.scss'];
-				
+
 				props.css_type = 'none';
 				break;
 			// SASS is the default
 			default:
 				delete files[ 'assets/css/less/' + props.js_safe_name + '.less'];
 				delete files[ 'assets/css/src/' + props.js_safe_name + '.css' ];
-				
+
 				props.devDependencies["grunt-contrib-sass"] = "~0.2.2";
 				props.css_type = 'sass';
 				break;
 		}
-		
+
 		console.log( files );
-		
+
 		// Actually copy and process files
 		init.copyAndProcess( files, props );
-		
+
 		// Generate package.json file
 		init.writePackageJSON( 'package.json', props );
-		
+
 		// Done!
 		done();
 	});

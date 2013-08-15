@@ -1,7 +1,7 @@
 === {%= title %} ===
-Contributors:      10up
+Contributors:      WebDevStudios
 Donate link:       {%= homepage %}
-Tags: 
+Tags:
 Requires at least: 3.5.1
 Tested up to:      3.5.1
 Stable tag:        0.1.0
